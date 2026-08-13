@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+/* 设计令牌（与 Ardot 设计稿一致） */
+@theme {
+  --color-bg: #f7f7f5;
+  --color-ink: #111111; /* 主文字 / 黑 */
+  --color-secondary: #6b7280;
+  --color-border: #e5e7eb;
+  --color-accent: #f97316; /* 橙色，克制使用 */
+  --color-muted: #9ca3af;
+  --color-male: #3b82f6; /* 男生符号 ♂ */
+  --color-female: #ec4899; /* 女生符号 ♀ */
+  --color-card: #ffffff;
+}
+
+@layer base {
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* 字体栈：next/font 注入的变量 + 兜底字体 */
+  .font-noto {
+    font-family: var(--font-noto), "Noto Sans SC", "PingFang SC", sans-serif;
+  }
+
+  .font-inter {
+    font-family: var(--font-inter), "Inter", sans-serif;
+  }
+
+  .font-mono-jb {
+    font-family: var(--font-mono), "JetBrains Mono", ui-monospace, monospace;
+  }
+}

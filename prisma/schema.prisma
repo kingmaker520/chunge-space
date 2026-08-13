@@ -1,0 +1,41 @@
+// 春哥空间 CHUNGE.SPACE 数据模型
+// provider 始终为 "sqlite"：本地用 SQLite 文件，Cloudflare 生产用 D1（D1 与 SQLite 兼容）。
+// 本地开发：DATABASE_URL=file:./dev.db，直接 `npm run dev`。
+// Cloudflare 生产：用 D1 绑定（wrangler.toml 中 binding = "DB"）+ Prisma D1 适配器，
+//                 建表命令见 package.json 的 db:d1:* 脚本（无需切换 provider）。
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  nickname     String    @unique
+  phone        String    @unique
+  passwordHash String
+  gender       String    // "male" | "female"
+  avatarEmoji  String    @default("🚀")
+  isOwner      Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+
+  comments Comment[]
+}
+
+model Comment {
+  id         String   @id @default(cuid())
+  targetType String // "article" | "project"
+  targetId   String
+  content    String
+  createdAt  DateTime @default(now())
+  parentId   String?
+
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String
+
+  @@index([targetType, targetId])
+}
