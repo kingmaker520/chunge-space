@@ -2,9 +2,6 @@ name = "chunge-space"
 compatibility_date = "2025-01-01"
 compatibility_flags = ["nodejs_compat"]
 
-# @cloudflare/next-on-pages 把 worker 和静态资源都放在 .vercel/output/static/ 下
-pages_build_output_dir = ".vercel/output/static"
-
 [[d1_databases]]
 binding = "DB"
 database_name = "chunge-space-db"
