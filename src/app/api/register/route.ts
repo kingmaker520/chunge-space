@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  const token = signToken(user.id);
+  const token = await signToken(user.id);
   const publicUser: PublicUser = {
     id: user.id,
     nickname: user.nickname,

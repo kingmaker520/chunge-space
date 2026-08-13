@@ -20,7 +20,7 @@ function toPublic(
 export async function GET(req: NextRequest) {
   const prisma = await getPrisma();
   const token = req.headers.get("authorization")?.replace("Bearer ", "");
-  const userId = verifyToken(token);
+  const userId = await verifyToken(token);
   if (!userId) return NextResponse.json({ user: null }, { status: 401 });
 
   const u = await prisma.user.findUnique({ where: { id: userId } });
@@ -47,6 +47,6 @@ export async function POST(req: NextRequest) {
   const ok = await verifyPassword(password, u.passwordHash);
   if (!ok) return NextResponse.json({ error: "密码错误" }, { status: 401 });
 
-  const token = signToken(u.id);
+  const token = await signToken(u.id);
   return NextResponse.json({ token, user: toPublic(u) });
 }

@@ -58,7 +58,7 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   const prisma = await getPrisma();
   const token = req.headers.get("authorization")?.replace("Bearer ", "");
-  const userId = verifyToken(token);
+  const userId = await verifyToken(token);
   if (!userId) return NextResponse.json({ error: "请先登录" }, { status: 401 });
 
   const { targetType, targetId, content, parentId } = (await req.json()) as {
