@@ -2,12 +2,9 @@ name = "chunge-space"
 compatibility_date = "2025-01-01"
 compatibility_flags = ["nodejs_compat"]
 
-# next-on-pages 把站点输出到 .vercel/output，Cloudflare Pages 据此部署
-pages_build_output_dir = ".vercel/output"
+# @cloudflare/next-on-pages 把 worker 和静态资源都放在 .vercel/output/static/ 下
+pages_build_output_dir = ".vercel/output/static"
 
-# Cloudflare D1 数据库（SQLite 兼容，生产环境持久化存储）
-# 部署前请先执行：`npx wrangler d1 create chunge-space-db`，
-# 然后把返回的 id 填到下面的 database_id。
 [[d1_databases]]
 binding = "DB"
 database_name = "chunge-space-db"
